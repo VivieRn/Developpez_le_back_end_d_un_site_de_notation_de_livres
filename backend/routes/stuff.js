@@ -6,7 +6,11 @@ const router = express.Router();
 
 const stuffCtrl = require("../controllers/stuff");
 
+router.get("/bestrating", stuffCtrl.getBestrating);
+
 router.post("/", auth, multer, stuffCtrl.createThing);
+
+router.post("/:id/rating", auth, stuffCtrl.setBookRating);
 
 router.put("/:id", auth, stuffCtrl.modifyThing);
 

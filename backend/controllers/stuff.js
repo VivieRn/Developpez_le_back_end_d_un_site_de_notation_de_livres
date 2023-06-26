@@ -68,3 +68,70 @@ exports.getAllThings = (req, res, next) => {
     .then((books) => res.status(200).json(books))
     .catch((error) => res.status(400).json({ error }));
 };
+
+exports.getBestrating = (req, res, next) => {
+  Book.find()
+    .sort({ averageRating: -1 }) // Trie les livres par note moyenne décroissante
+    .limit(3) // Récupère seulement les 3 premiers livres
+    .then((books) => {
+      res.status(200).json(books);
+    })
+    .catch((error) => {
+      res.status(400).json({ error });
+    });
+};
+
+exports.setBookRating = (req, res, next) => {
+  const { userId, rating } = req.body;
+
+  // Vérifier si la note est valide (comprise entre 0 et 5)
+  if (rating < 0 || rating > 5) {
+    return res
+      .status(400)
+      .json({ error: "La note doit être comprise entre 0 et 5." });
+  }
+
+  // Rechercher le livre par son ID
+  Book.findOne({ _id: req.params.id })
+    .then((book) => {
+      if (!book) {
+        return res.status(404).json({ error: "Livre non trouvé !" });
+      }
+
+      // Vérifier si l'utilisateur a déjà noté ce livre
+      const existingRating = book.ratings.find((r) => r.userId === userId);
+      if (existingRating) {
+        return res.status(400).json({ error: "Vous avez déjà noté ce livre." });
+      }
+
+      // Ajouter la nouvelle note à l'array "ratings" du livre
+      book.ratings.push({ userId, grade: rating });
+
+      // Recalculer la moyenne des notes
+      const totalRatings = book.ratings.length;
+      const sumRatings = book.ratings.reduce((sum, r) => sum + r.grade, 0);
+      book.averageRating = sumRatings / totalRatings;
+
+      // Sauvegarder les modifications du livre
+      book
+        .save()
+        .then((updatedBook) => {
+          res.status(200).json(updatedBook);
+        })
+        .catch((error) => {
+          res
+            .status(500)
+            .json({
+              error:
+                "Une erreur s'est produite lors de la sauvegarde du livre.",
+            });
+        });
+    })
+    .catch((error) => {
+      res
+        .status(500)
+        .json({
+          error: "Une erreur s'est produite lors de la recherche du livre.",
+        });
+    });
+};
