@@ -1,5 +1,7 @@
 //Logique métier
 const Book = require("../models/book");
+const sharp = require("sharp");
+const fs = require("fs");
 
 exports.createThing = (req, res, next) => {
   try {
@@ -10,23 +12,54 @@ exports.createThing = (req, res, next) => {
     }
 
     const bookObject = JSON.parse(req.body.book);
-    const book = new Book({
-      ...bookObject,
-      userId: req.auth.userId,
-      imageUrl: `${req.protocol}://${req.get("host")}/images/${
-        req.file.filename
-      }`,
-      ratings: [],
-      averageRating: 0,
-    });
+    const imagePath = req.file.path; // Chemin de l'image d'origine
 
-    book
-      .save()
-      .then(() => {
-        res.status(201).json({ message: "Livre enregistré !" });
-      })
-      .catch((error) => {
-        res.status(400).json({ error });
+    // Chemin de l'image WebP
+    const webpPath = `${req.file.destination}/${req.file.filename}.webp`;
+
+    //Compression de l'image
+    const webpOptions = {
+      quality: 50,
+    };
+
+    // Convertir l'image en WebP
+    sharp(imagePath)
+      .toFormat("webp", webpOptions)
+      .toFile(webpPath, (error) => {
+        if (error) {
+          throw new Error(
+            "Une erreur s'est produite lors de la conversion de l'image en WebP."
+          );
+        }
+
+        // Supprimer l'image d'origine
+        fs.unlink(imagePath, (error) => {
+          if (error) {
+            console.log(
+              "Une erreur s'est produite lors de la suppression de l'image d'origine :",
+              error
+            );
+          }
+
+          const book = new Book({
+            ...bookObject,
+            userId: req.auth.userId,
+            imageUrl: `${req.protocol}://${req.get("host")}/images/${
+              req.file.filename
+            }.webp`,
+            ratings: [],
+            averageRating: 0,
+          });
+
+          book
+            .save()
+            .then(() => {
+              res.status(201).json({ message: "Livre enregistré !" });
+            })
+            .catch((error) => {
+              res.status(400).json({ error });
+            });
+        });
       });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -119,19 +152,14 @@ exports.setBookRating = (req, res, next) => {
           res.status(200).json(updatedBook);
         })
         .catch((error) => {
-          res
-            .status(500)
-            .json({
-              error:
-                "Une erreur s'est produite lors de la sauvegarde du livre.",
-            });
+          res.status(500).json({
+            error: "Une erreur s'est produite lors de la sauvegarde du livre.",
+          });
         });
     })
     .catch((error) => {
-      res
-        .status(500)
-        .json({
-          error: "Une erreur s'est produite lors de la recherche du livre.",
-        });
+      res.status(500).json({
+        error: "Une erreur s'est produite lors de la recherche du livre.",
+      });
     });
 };
