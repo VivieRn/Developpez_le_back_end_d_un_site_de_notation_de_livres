@@ -20,6 +20,11 @@ exports.createThing = (req, res, next) => {
     //Compression de l'image
     const webpOptions = {
       quality: 50,
+      resize: {
+        width: 800,
+        height: 600,
+        fit: "cover",
+      },
     };
 
     // Convertir l'image en WebP
@@ -47,8 +52,6 @@ exports.createThing = (req, res, next) => {
             imageUrl: `${req.protocol}://${req.get("host")}/images/${
               req.file.filename
             }.webp`,
-            ratings: [],
-            averageRating: 0,
           });
 
           book
