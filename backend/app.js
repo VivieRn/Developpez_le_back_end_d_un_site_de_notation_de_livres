@@ -2,6 +2,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
+const helmet = require("helmet");
 
 const stuffRoute = require("./routes/stuff");
 const userRoutes = require("./routes/user");
@@ -31,6 +32,18 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+//Mesure de sécurité via Helmet, entête HTTPS et limitation des sources
+app.use(helmet.hsts({ maxAge: 31536000, includeSubDomains: true }));
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'"],
+      styleSrc: ["self"],
+    },
+  })
+);
 
 app.use("/api/books", stuffRoute);
 app.use("/api/auth", userRoutes);

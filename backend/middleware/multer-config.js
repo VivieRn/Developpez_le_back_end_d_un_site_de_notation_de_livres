@@ -1,3 +1,4 @@
+//Gestion & restrictions des fichiers téléchargé
 const multer = require("multer");
 
 const MIME_TYPES = {
