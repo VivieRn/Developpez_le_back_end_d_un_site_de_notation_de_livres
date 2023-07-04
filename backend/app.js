@@ -2,11 +2,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
-const helmet = require("helmet");
 
 const stuffRoute = require("./routes/stuff");
 const userRoutes = require("./routes/user");
 const { logger, logRequest, logError } = require("./middleware/logger");
+const {
+  hstsMiddleware,
+  contentSecurityPolicyMiddleware,
+  xXssProtection,
+} = require("./middleware/helmet");
 const app = express();
 
 //Database mangoDB
@@ -34,22 +38,13 @@ app.use((req, res, next) => {
   next();
 });
 
-//Mesure de sécurité via Helmet, entête HTTPS et limitation des sources
-app.use(helmet.hsts({ maxAge: 31536000, includeSubDomains: true }));
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'"],
-      styleSrc: ["self"],
-    },
-  })
-);
-
+app.use(hstsMiddleware);
+app.use(contentSecurityPolicyMiddleware);
 app.use(logRequest);
 app.use(logError);
 app.use("/api/books", stuffRoute);
 app.use("/api/auth", userRoutes);
 app.use("/images", express.static(path.join(__dirname, "images")));
+app.use(xXssProtection);
 
 module.exports = app;
