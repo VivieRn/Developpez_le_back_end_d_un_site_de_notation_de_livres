@@ -21,8 +21,8 @@ exports.createThing = (req, res, next) => {
     const webpOptions = {
       quality: 50,
       resize: {
-        width: 800,
-        height: 600,
+        width: 380,
+        height: 570,
         fit: "cover",
       },
     };

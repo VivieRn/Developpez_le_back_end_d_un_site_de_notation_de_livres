@@ -2374,3 +2374,38 @@
 {"level":"info","message":"[POST] IP: ::1 - /api/auth/login"}
 {"level":"info","message":"[GET] IP: ::1 - /api/books"}
 {"level":"info","message":"[GET] IP: ::1 - /api/books"}
+{"level":"info","message":"[GET] IP: ::1 - /api/books"}
+{"level":"info","message":"[GET] IP: ::1 - /api/books"}
+{"level":"info","message":"[GET] IP: ::1 - /images/La_Divine_comedie.jpg1688034306846.jpg.webp"}
+{"level":"info","message":"[GET] IP: ::1 - /images/Les_Fourmis.jpg1688034473827.jpg.webp"}
+{"level":"info","message":"[GET] IP: ::1 - /images/Bilbo_le_hobbit.jpg1688382533754.jpg.webp"}
+{"level":"info","message":"[GET] IP: ::1 - /images/Le_Silmarillion.jpg1688462441305.jpg.webp"}
+{"level":"info","message":"[GET] IP: ::1 - /api/books"}
+{"level":"info","message":"[GET] IP: ::1 - /api/books"}
+{"level":"info","message":"[GET] IP: ::1 - /images/La_Divine_comedie.jpg1688034306846.jpg.webp"}
+{"level":"info","message":"[GET] IP: ::1 - /images/Les_Fourmis.jpg1688034473827.jpg.webp"}
+{"level":"info","message":"[GET] IP: ::1 - /images/Bilbo_le_hobbit.jpg1688382533754.jpg.webp"}
+{"level":"info","message":"[GET] IP: ::1 - /images/Le_Silmarillion.jpg1688462441305.jpg.webp"}
+{"level":"info","message":"[GET] IP: ::1 - /api/books"}
+{"level":"info","message":"[GET] IP: ::1 - /api/books"}
+{"level":"info","message":"[GET] IP: ::1 - /images/La_Divine_comedie.jpg1688034306846.jpg.webp"}
+{"level":"info","message":"[GET] IP: ::1 - /images/Bilbo_le_hobbit.jpg1688382533754.jpg.webp"}
+{"level":"info","message":"[GET] IP: ::1 - /images/Les_Fourmis.jpg1688034473827.jpg.webp"}
+{"level":"info","message":"[GET] IP: ::1 - /images/Le_Silmarillion.jpg1688462441305.jpg.webp"}
+{"level":"info","message":"[GET] IP: ::1 - /api/books"}
+{"level":"info","message":"[GET] IP: ::1 - /api/books"}
+{"level":"info","message":"[GET] IP: ::1 - /images/La_Divine_comedie.jpg1688034306846.jpg.webp"}
+{"level":"info","message":"[GET] IP: ::1 - /images/Les_Fourmis.jpg1688034473827.jpg.webp"}
+{"level":"info","message":"[GET] IP: ::1 - /images/Bilbo_le_hobbit.jpg1688382533754.jpg.webp"}
+{"level":"info","message":"[GET] IP: ::1 - /images/Le_Silmarillion.jpg1688462441305.jpg.webp"}
+{"level":"info","message":"[GET] IP: ::1 - /api/books/649d5ca9f3e6824e506b2405"}
+{"level":"info","message":"[GET] IP: ::1 - /api/books/649d5ca9f3e6824e506b2405"}
+{"level":"info","message":"[GET] IP: ::1 - /api/books/bestrating"}
+{"level":"info","message":"[GET] IP: ::1 - /api/books/bestrating"}
+{"level":"info","message":"[GET] IP: ::1 - /api/books"}
+{"level":"info","message":"[GET] IP: ::1 - /api/books"}
+{"level":"info","message":"[GET] IP: ::1 - /images/Le_Silmarillion.jpg1688462441305.jpg.webp"}
+{"level":"info","message":"[04/07/2023 13:57:34] [GET] IP: ::1 - /api/books/649d5c02f3e6824e506b23ca"}
+{"level":"info","message":"[04/07/2023 13:57:34] [GET] IP: ::1 - /api/books/649d5c02f3e6824e506b23ca"}
+{"level":"info","message":"[04/07/2023 13:57:34] [GET] IP: ::1 - /api/books/bestrating"}
+{"level":"info","message":"[04/07/2023 13:57:34] [GET] IP: ::1 - /api/books/bestrating"}
