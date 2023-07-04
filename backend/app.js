@@ -6,6 +6,7 @@ const helmet = require("helmet");
 
 const stuffRoute = require("./routes/stuff");
 const userRoutes = require("./routes/user");
+const { logger, logRequest, logError } = require("./middleware/logger");
 const app = express();
 
 //Database mangoDB
@@ -45,6 +46,8 @@ app.use(
   })
 );
 
+app.use(logRequest);
+app.use(logError);
 app.use("/api/books", stuffRoute);
 app.use("/api/auth", userRoutes);
 app.use("/images", express.static(path.join(__dirname, "images")));
