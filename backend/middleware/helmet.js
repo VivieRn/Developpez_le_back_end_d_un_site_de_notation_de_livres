@@ -2,7 +2,7 @@ const helmet = require("helmet");
 
 // Fonction middleware pour HSTS
 const hstsMiddleware = helmet.hsts({
-  maxAge: 31536000,
+  maxAge: 5184000,
   includeSubDomains: true,
 });
 
@@ -12,6 +12,7 @@ const contentSecurityPolicyMiddleware = helmet.contentSecurityPolicy({
     defaultSrc: ["'self'"],
     scriptSrc: ["'self'"],
     styleSrc: ["self"],
+    imgSrc: ["'self'"],
   },
 });
 
@@ -29,7 +30,7 @@ function xXssProtection(options) {
       if (!matches || parseFloat(matches[1]) >= 9) {
         value = headerValue;
       } else {
-        value = "0"; // Si le navigateur est <= IE8
+        value = "0";
       }
 
       // Force l'en-tête X-XSS-Protection pour les anciennes versions d'IE
@@ -41,7 +42,7 @@ function xXssProtection(options) {
         res.setHeader("X-XSS-Protection", value);
       }
 
-      next(); // On appelle le middleware suivant
+      next();
     };
   } else {
     return function xXssProtection(req, res, next) {
@@ -51,11 +52,11 @@ function xXssProtection(options) {
       if (!matches || parseFloat(matches[1]) >= 9) {
         value = headerValue;
       } else {
-        value = "0"; // Si le navigateur est <= IE8
+        value = "0";
       }
 
-      res.setHeader("X-XSS-Protection", value); // Ajout de l'en-tête X-XSS-Protection
-      next(); // On appelle le middleware suivant
+      res.setHeader("X-XSS-Protection", value);
+      next();
     };
   }
 }

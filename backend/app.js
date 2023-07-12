@@ -11,6 +11,10 @@ const {
   contentSecurityPolicyMiddleware,
   xXssProtection,
 } = require("./middleware/helmet");
+const {
+  checkRequest,
+  blockExcessiveRangeRequests,
+} = require("./middleware/ratelimit");
 const app = express();
 
 //Database mangoDB
@@ -40,11 +44,19 @@ app.use((req, res, next) => {
 
 app.use(hstsMiddleware);
 app.use(contentSecurityPolicyMiddleware);
+
+// Middleware de log
 app.use(logRequest);
 app.use(logError);
+
+// Middleware de limitation de débit
+app.use(blockExcessiveRangeRequests);
+app.use(checkRequest);
+
 app.use("/api/books", stuffRoute);
 app.use("/api/auth", userRoutes);
+
+// Servir des fichiers statiques
 app.use("/images", express.static(path.join(__dirname, "images")));
-app.use(xXssProtection);
 
 module.exports = app;
