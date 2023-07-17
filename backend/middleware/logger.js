@@ -12,15 +12,19 @@ const logger = winston.createLogger({
 const logRequest = (req, res, next) => {
   const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
   const timestamp = new Date().toISOString();
+  const headersCopy = { ...req.headers };
+  if (headersCopy.authorization) {
+    headersCopy.authorization = "[REDACTED]";
+  }
   const message = {
     timestamp,
     method: req.method,
     url: req.originalUrl,
     ip,
-    headers: req.headers,
+    headers: headersCopy,
     query: req.query,
-    status: res.statusCode, // Ajouter le statut de la réponse
-    request: req.body,
+    status: res.statusCode,
+    body: req.body,
   };
   logger.info(JSON.stringify(message, null, 2));
   next();
