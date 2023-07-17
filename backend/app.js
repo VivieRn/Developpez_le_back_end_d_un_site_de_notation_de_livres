@@ -5,11 +5,10 @@ const path = require("path");
 
 const stuffRoute = require("./routes/stuff");
 const userRoutes = require("./routes/user");
-const { logger, logRequest, logError } = require("./middleware/logger");
+const { logRequest, logError } = require("./middleware/logger");
 const {
   hstsMiddleware,
   contentSecurityPolicyMiddleware,
-  xXssProtection,
 } = require("./middleware/helmet");
 const {
   checkRequest,
