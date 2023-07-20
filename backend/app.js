@@ -41,6 +41,7 @@ app.use((req, res, next) => {
   next();
 });
 
+//Middleware de sécurité
 app.use(hstsMiddleware);
 app.use(contentSecurityPolicyMiddleware);
 
@@ -52,6 +53,7 @@ app.use(logError);
 app.use(blockExcessiveRangeRequests);
 app.use(checkRequest);
 
+//Définitions des routes et de leurs comportements
 app.use("/api/books", stuffRoute);
 app.use("/api/auth", userRoutes);
 
