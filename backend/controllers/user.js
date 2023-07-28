@@ -5,6 +5,12 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 exports.signup = (req, res, next) => {
+  const password = req.body.password;
+
+  if (password.length < 12) {
+    return res.status(400).json({ error });
+  }
+
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
