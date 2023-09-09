@@ -53,7 +53,6 @@ exports.createThing = (req, res, next) => {
               req.file.filename
             }.webp`,
           });
-
           book
             .save()
             .then(() => {
