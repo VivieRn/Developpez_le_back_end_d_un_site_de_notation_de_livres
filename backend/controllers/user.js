@@ -8,7 +8,10 @@ exports.signup = (req, res, next) => {
   const password = req.body.password;
 
   if (password.length < 12) {
-    return res.status(400).json({ error });
+    return res.status(422).json({
+      error:
+        "Pour votre sécurité le mot de passe doit comprendre 12 caractères minimum.",
+    });
   }
 
   bcrypt
