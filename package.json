@@ -1,8 +1,8 @@
 {
+  "homepage": "https://viviern.github.io/Developpez_le_back_end_d_un_site_de_notation_de_livres",
   "name": "mon-vieux-grimoire-frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://VivieRn.github.io/Developpez_le_back_end_d_un_site_de_notation_de_livres",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
