@@ -16,10 +16,18 @@ function SignIn({ setUser }) {
   }
 
   const [email, setEmail] = useState('');
+  const isValidEmail = () => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex pour la validation de l'email
+    return re.test(email);
+  };
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [notification, setNotification] = useState({ error: false, message: '' });
   const signIn = async () => {
+    if (!isValidEmail(email)) {
+      setNotification({ error: true, message: "Veuillez entrer une adresse email valide." });
+      return;
+    }
     try {
       setIsLoading(true);
       const response = await axios({
@@ -39,15 +47,23 @@ function SignIn({ setUser }) {
         navigate('/');
       }
     } catch (err) {
-      console.log(err);
-      setNotification({ error: true, message: err.message });
-      console.log('Some error occured during signing in: ', err);
-    } finally {
-      setIsLoading(false);
+      let errorMessage = 'Une erreur est survenue';
+      if (err.response && err.response.status === 401) {
+        // Utiliser le message personnalisé de l'API si disponible
+        errorMessage = err.response.data.error || 'Identifiants incorrects';
+      } else if (err.message) {
+        // Fallback sur le message d'erreur générique de Axios
+        errorMessage = err.message;
+      }
+      setNotification({ error: true, message: errorMessage });
+      console.log('Some error occurred during signing in/up: ', err);
     }
   };
-
   const signUp = async () => {
+    if (!isValidEmail(email)) {
+      setNotification({ error: true, message: "Veuillez entrer une adresse email valide." });
+      return;
+    }
     try {
       setIsLoading(true);
       const response = await axios({
@@ -64,7 +80,9 @@ function SignIn({ setUser }) {
       }
       setNotification({ error: false, message: 'Votre compte a bien été créé, vous pouvez vous connecter' });
     } catch (err) {
-      setNotification({ error: true, message: err.message });
+      // Ici, on vérifie si la réponse contient un message d'erreur personnalisé
+      const errorMessage = err.response?.data?.error || err.message;
+      setNotification({ error: true, message: errorMessage });
       console.log('Some error occured during signing up: ', err);
     } finally {
       setIsLoading(false);

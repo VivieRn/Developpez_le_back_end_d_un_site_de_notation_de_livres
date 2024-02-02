@@ -1,4 +1,4 @@
-//logique métier
+// logique métier
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
@@ -39,7 +39,9 @@ exports.login = (req, res, next) => {
         .compare(req.body.password, user.password)
         .then((valid) => {
           if (!valid) {
-            return res.status(401).json({ error: "Mot de passe incorrect !" });
+            return res
+              .status(401)
+              .json({ error: "E-mail ou mot de passe incorrect !" });
           }
 
           const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {

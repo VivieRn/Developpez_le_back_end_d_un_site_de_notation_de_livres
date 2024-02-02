@@ -1,4 +1,4 @@
-//Logique général de l'application
+// Logique général de l'application
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");

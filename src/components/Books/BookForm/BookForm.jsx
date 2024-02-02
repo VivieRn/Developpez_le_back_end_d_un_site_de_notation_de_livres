@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+
 import React, { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as PropTypes from 'prop-types';
@@ -47,12 +48,14 @@ function BookForm({ book, validate }) {
     // When we create a new book
     if (!book) {
       if (!data.file[0]) {
+        // eslint-disable-next-line no-alert
         alert('Vous devez ajouter une image');
       }
       const newBook = await addBook(data);
       if (!newBook.error) {
         validate(true);
       } else {
+        // eslint-disable-next-line no-alert
         alert(newBook.message);
       }
     } else {
@@ -60,6 +63,7 @@ function BookForm({ book, validate }) {
       if (!updatedBook.error) {
         navigate('/');
       } else {
+        // eslint-disable-next-line no-alert
         alert(updatedBook.message);
       }
     }

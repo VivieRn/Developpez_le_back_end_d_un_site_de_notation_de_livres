@@ -1,4 +1,4 @@
-//Logique métier
+// Logique métier
 const Book = require("../models/book");
 const sharp = require("sharp");
 const fs = require("fs");
@@ -17,7 +17,7 @@ exports.createThing = (req, res, next) => {
     // Chemin de l'image WebP
     const webpPath = `${req.file.destination}/${req.file.filename}.webp`;
 
-    //Compression de l'image
+    // Compression de l'image
     const webpOptions = {
       quality: 50,
       resize: {

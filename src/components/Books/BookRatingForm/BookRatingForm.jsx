@@ -36,6 +36,7 @@ function BookRatingForm({
       // eslint-disable-next-line no-underscore-dangle
       setBook({ ...update, id: update._id });
     } else {
+      // eslint-disable-next-line no-alert
       alert(update);
     }
   };
